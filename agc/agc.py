@@ -1,3 +1,24 @@
+
+Conversation ouverte. 1 message lu.
+
+Aller au contenu
+Utiliser Gmail avec un lecteur d'écran
+Meet
+Hangouts
+6 sur 9 627
+amine gozlane
+Boîte de réception
+Grace Djiraibe <grace.djiraibe@gmail.com>
+	
+Pièces jointes08:54 (il y a 12 heures)
+	
+À moi
+
+Zone contenant les pièces jointes
+	
+	
+	
+
 #!/bin/env python3
 # -*- coding: utf-8 -*-
 #    This program is free software: you can redistribute it and/or modify
@@ -23,13 +44,13 @@ from collections import Counter
 # ftp://ftp.ncbi.nih.gov/blast/matrices/
 import nwalign3 as nw
 
-__author__ = "Your Name"
-__copyright__ = "Universite Paris Diderot"
-__credits__ = ["Your Name"]
+__author__ = "Grace Djiraïbe"
+__copyright__ = "Universite de Paris"
+__credits__ = ["Grace Djiraïbe"]
 __license__ = "GPL"
 __version__ = "1.0.0"
-__maintainer__ = "Your Name"
-__email__ = "your@email.fr"
+__maintainer__ = "Grace Djiraibe"
+__email__ = "grace.djiraibe@gmail.com"
 __status__ = "Developpement"
 
 
@@ -70,11 +91,62 @@ def get_arguments():
     return parser.parse_args()
 
 def read_fasta(amplicon_file, minseqlen):
-    pass
+    '''
+    Function that tsakes as arguments a fasta file and the seqeunce length.
+
+    PARAMETERS
+    ----------
+        ** amplicon_file : str
+            The file name.
+        ** mineseqlen : int
+            The minimun sequence size.
+    RETURNS
+    -------
+        ** Generator of seqeunces.
+    '''
+    # En raison des restriction github amplicon fasta.gz devra rester compréssée.
+    if amplicon_file.endswith("gz"):
+        with gzip.open("amplicon.fasta.gz", "rt") as fasta_file:
+            for line in fasta_file:
+                if not line.startswith(">"):
+                    if len(line) >= minseqlen:
+                        yield line
+    else:
+        with open(amplicon_file, "r") as fasta_file:
+            for line in fasta_file:
+                if not line.startswith(">"):
+                    if len(line) >= minseqlen:
+                        yield line 
+
 
 
 def dereplication_fulllength(amplicon_file, minseqlen, mincount):
-    pass
+    '''
+    This function is using the generator create buy read_fasta.
+
+    PARAMETERS
+    ----------
+    ** amplicon_file : str
+        The file name.
+    ** mineseqlen : int
+        The minimun sequence size.
+    ** minecount : 
+        The minimun amount of couting.
+
+    RETURNS
+    -------
+    ** Sequences in descending order of accuracy yield[seq, my_seq_count]
+    '''
+
+    seq_amplicon = {}
+    for amplicon in read fasta_file(amplicon_file,minseqlen):
+        if amplicon not in seq_amplicon.keys():
+            seq_amplicon[amplicon] = 1
+        else:
+            seq_amplicon[amplicon] += 1
+    for seq, my_seq_count in sorted(seq_amplicon.items(), key=lamda item: item[1], reverse = True):
+        if count >= mincount:
+            yield[seq, my_seq_count]
 
 
 def get_unique(ids):
@@ -111,7 +183,9 @@ def get_identity(alignment_list):
     return round(100.0 * id_nu / len(alignment_list[0]), 2)
 
 def chimera_removal(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
-    pass
+    '''
+    
+    '''
 
 def abundance_greedy_clustering(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
     pass
@@ -137,3 +211,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+agc.py
+Affichage de agc.py en cours...
